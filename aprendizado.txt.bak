@@ -1,0 +1,11 @@
+-> O que estou aprendendo de novo/reforçando melhor com o curso?
+	• Novidade e utilização do detekt
+	• Modularização do app, quais os motivos?
+		- Build mais performático (só builda os arquivos do modulo alterado)
+		- Estrutura e facilitação na organização do código (encaixa muito bem com Clean Architecture)
+		- Como trazer as dependencias de um modulo para outro
+	• Utilização do httplogging para apresentar os dados no log apenas quando for debug
+	• Melhor utilização do interceptor para definir as chaves de api e url base
+	• Uma das formas segures de armazenar apiKeys no android ->
+		- apikey.properties
+		- BuildConfig
