@@ -1,5 +1,5 @@
 -> O que estou aprendendo de novo/reforçando melhor com o curso?
-	• Novidade e utilização do detekt
+	• Novidade e utilização do detekt (ferramenta de analise estatica de codigo)
 	• Modularização do app, quais os motivos?
 		- Build mais performático (só builda os arquivos do modulo alterado)
 		- Estrutura e facilitação na organização do código (encaixa muito bem com Clean Architecture)

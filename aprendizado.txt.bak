@@ -9,3 +9,5 @@
 	• Uma das formas segures de armazenar apiKeys no android ->
 		- apikey.properties
 		- BuildConfig
+	• Utilização consciente do principio L do soLid, principio da substituição por interface (Liskov)
+		- utilização através da clean, definindo os métodos de acesso a dados remoto, e a api volátil implementa essas regras
