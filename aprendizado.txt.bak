@@ -1,5 +1,5 @@
 -> O que estou aprendendo de novo/reforçando melhor com o curso?
-	• Novidade e utilização do detekt
+	• Novidade e utilização do detekt (ferramenta de analise estatica de codigo)
 	• Modularização do app, quais os motivos?
 		- Build mais performático (só builda os arquivos do modulo alterado)
 		- Estrutura e facilitação na organização do código (encaixa muito bem com Clean Architecture)
@@ -11,3 +11,4 @@
 		- BuildConfig
 	• Utilização consciente do principio L do soLid, principio da substituição por interface (Liskov)
 		- utilização através da clean, definindo os métodos de acesso a dados remoto, e a api volátil implementa essas regras
+		- Criando interfaces para definir os métodos de acesso a dados remoto/local na camada core, e implementando com os frameworks volateis na camada app

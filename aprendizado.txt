@@ -11,3 +11,7 @@
 		- BuildConfig
 	• Utilização consciente do principio L do soLid, principio da substituição por interface (Liskov)
 		- utilização através da clean, definindo os métodos de acesso a dados remoto, e a api volátil implementa essas regras
+		- Criando interfaces para definir os métodos de acesso a dados remoto/local na camada core, e implementando com os frameworks volateis na camada app
+	• Como utilizar o hilt para:
+		- Prover dependencias de classes que "não são minhas" | Provide | Object
+		- Prover dependencias de interfaces que são minhas | Binds | Interface

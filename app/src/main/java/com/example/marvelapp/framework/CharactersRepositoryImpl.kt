@@ -2,6 +2,7 @@ package com.example.marvelapp.framework
 
 import androidx.paging.PagingSource
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
+import com.example.marvelapp.framework.paging.CharactersPagingSource
 import com.gmail.devpelegrino.core.data.repository.CharactersRemoteDataSource
 import com.gmail.devpelegrino.core.data.repository.CharactersRepository
 import com.gmail.devpelegrino.core.domain.model.Character
@@ -12,6 +13,6 @@ class CharactersRepositoryImpl @Inject constructor(
 ) : CharactersRepository {
 
     override fun getCharacters(query: String): PagingSource<Int, Character> {
-        TODO("Not yet implemented")
+        return CharactersPagingSource(remoteDataSource, query)
     }
 }
