@@ -5,15 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.marvelapp.databinding.FragmentCharactersBinding
-import com.gmail.devpelegrino.core.domain.model.Character
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
 
     private var _binding: FragmentCharactersBinding? = null
     private val binding: FragmentCharactersBinding get() = _binding!!
+
+    /*
+    * Instanciando o viewModel a partir do extension de fragments
+    * porém o factory utilizado já vai ser conforme o hilt configurado com @HiltViewModel e
+    * @AndroidEntryPoint
+    * */
+    private val viewModel: CharactersViewModel by viewModels()
 
     private val charactersAdapter = CharactersAdapter()
 
@@ -28,15 +37,11 @@ class CharactersFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initCharactersAdapter()
 
-        charactersAdapter.submitList(
-            listOf(
-                Character("3D-Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"),
-                Character("3D-Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"),
-                Character("3D-Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"),
-                Character("3D-Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg"),
-                Character("3D-Man", "https://i.annihil.us/u/prod/marvel/i/mg/c/e0/535fecbbb9784.jpg")
-            )
-        )
+        lifecycleScope.launch {
+            viewModel.charactersPagingData("").collect { pagingData ->
+                charactersAdapter.submitData(pagingData)
+            }
+        }
     }
 
     private fun initCharactersAdapter() {
