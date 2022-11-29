@@ -27,4 +27,4 @@
 		- Faz toda a conversão/ponte entre camada de dados e camada de UI
 		- Corresponde a somente um caso de uso, um unico fluxo, uma unica ação
 	
-	• Configuração de um Paging3 com Clean Architecutre (UseCase + Interface sobre repository/datasource)
+	• Configuração de um Paging3 com Clean Architecutre (UseCase + Interface sobre repository/datasource + flow)

@@ -28,3 +28,5 @@
 		- Corresponde a somente um caso de uso, um unico fluxo, uma unica ação
 	
 	• Configuração de um Paging3 com Clean Architecutre (UseCase + Interface sobre repository/datasource + flow)
+	
+	• Utilização de Paging com Footer/Header observando o LoadState para implementar loading/error states
