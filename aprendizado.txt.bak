@@ -28,3 +28,15 @@
 		- Corresponde a somente um caso de uso, um unico fluxo, uma unica ação
 	
 	• Configuração de um Paging3 com Clean Architecutre (UseCase + Interface sobre repository/datasource + flow)
+	
+	• Utilização de Paging com Footer/Header observando o LoadState para implementar loading/error states
+	
+	• Testes unitários:
+		- Como o mockito funciona
+			♦ @Mock funciona apenas para interface
+			♦ Para instanciar, é precisso o Runner do mockito anotado na classe de teste com @RunWith(MockitoJUnitRunner::class)
+			♦ Ou se o Runner for outro como por exemplo o JUnitRunner, na função anotada com @Before, devo utilizar o código MockitoAnotations.initMock(this) para ela identificar o @Mock e instanciar
+		- Definir retorno de funções, comportamentos dos mocks para manipular os testes
+		- Como testar a implementação de Paging3
+		- Como mockar adequadamente
+		- Por que é importante uma boa arquitetura e a utilização de interfaces bem definidas no projeto
