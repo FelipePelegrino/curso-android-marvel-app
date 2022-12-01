@@ -32,6 +32,8 @@
 	• Utilização de Paging com Footer/Header observando o LoadState para implementar loading/error states
 	
 	• Testes unitários:
+		- Como testar com o scopo de coroutines
+		- Como criar um module para testes e fornecer através de uma classe através de @Rule, funções em comuns para todos os testes (Como a manipulação de coroutines)
 		- Como o mockito funciona
 			♦ @Mock funciona apenas para interface
 			♦ Para instanciar, é precisso o Runner do mockito anotado na classe de teste com @RunWith(MockitoJUnitRunner::class)
@@ -40,3 +42,8 @@
 		- Como testar a implementação de Paging3
 		- Como mockar adequadamente
 		- Por que é importante uma boa arquitetura e a utilização de interfaces bem definidas no projeto
+		
+	• BuildTypes
+		- Debug: facilitação e rapidez no desenvolvimento, compilação rapida, testes rápidos
+		- Staging: simulação do app da loja, habilitando configurações de ofuscação e redução de código, versão disponibilizadas para QA
+		- Release: configurações de ofuscação, redução, habilitadas, versão para loja
