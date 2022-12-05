@@ -47,3 +47,12 @@
 		- Debug: facilitação e rapidez no desenvolvimento, compilação rapida, testes rápidos
 		- Staging: simulação do app da loja, habilitando configurações de ofuscação e redução de código, versão disponibilizadas para QA
 		- Release: configurações de ofuscação, redução, habilitadas, versão para loja
+		
+	• Ofuscação, redução de código, utilização do proguard-rules, R8
+	
+	• Funcionamento de uma esteira de CI/CD
+		- Por que utilizar? Melhora a qualidade do código, uma vez que o Lint e detekt irão analisar o código a cada push/Pr configurado na CI, assim como realizará todos os testes unitários e instrumentados
+		- Permite a geração de versões para o próprio bitrise ou integrado a firebase, assim como permite gerar versão direto na loja
+		- Ou seja, garante qualidade, segurança, agilidade e otimização no processo de desenvolvimento
+		
+	• Como bloquear uma branch para apenas aceitar Pull Request, garantindo sempre o code review em branchs críticas como develop, staging, master
