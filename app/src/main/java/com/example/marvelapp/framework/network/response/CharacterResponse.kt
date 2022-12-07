@@ -1,6 +1,6 @@
 package com.example.marvelapp.framework.network.response
 
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.domain.model.Character
 import com.google.gson.annotations.SerializedName
 
 data class CharacterResponse(

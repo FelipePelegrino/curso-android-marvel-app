@@ -3,9 +3,9 @@ package com.example.marvelapp.framework
 import androidx.paging.PagingSource
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.paging.CharactersPagingSource
-import com.gmail.devpelegrino.core.data.repository.CharactersRemoteDataSource
-import com.gmail.devpelegrino.core.data.repository.CharactersRepository
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.data.repository.CharactersRemoteDataSource
+import com.example.core.data.repository.CharactersRepository
+import com.example.core.domain.model.Character
 import javax.inject.Inject
 
 class CharactersRepositoryImpl @Inject constructor(

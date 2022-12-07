@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ItemCharacterBinding
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.domain.model.Character
 
 class CharactersViewHolder(
     itemCharacterBinding: ItemCharacterBinding

@@ -2,7 +2,7 @@ package com.example.marvelapp.framework.remote
 
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
-import com.gmail.devpelegrino.core.data.repository.CharactersRemoteDataSource
+import com.example.core.data.repository.CharactersRemoteDataSource
 import javax.inject.Inject
 
 class RetrofitCharactersDataSource @Inject constructor(

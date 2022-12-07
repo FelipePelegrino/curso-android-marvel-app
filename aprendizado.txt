@@ -58,3 +58,35 @@
 	• Como bloquear uma branch para apenas aceitar Pull Request, garantindo sempre o code review em branchs críticas como develop, staging, master
 		- Require a pull request before merging
 		- Require status check to pass before merging (serve para integrações com servidores de CI, só libera o merging após o build ser finalizado com sucesso) 
+		
+	• Como configurar um arquivo de keys no bitrise
+		- Adicionar step de script, na qual criara um apikeys.properties na rais do projeto, recebendo as variáveis do secrets no bitrise
+		- Os secretes tem que ser passado o valor entre "" pois o gradle precisará ler dessa forma, com a opção "Replace variable in input"
+		
+	• Firebase
+		- Cada app é um buildVariant
+			- Criar os app de acordo com as buildVariant, no final, baixar o arquivo google-services.json que contém as infos dos projetos criados no firebase e colocar na raiz do módulo app no meu projeto android studio
+		- Firebase CLI
+			- firebase login
+			- firebase ci (para linkar com o ci do bitrise)
+			- ao fazer o login com firebase login:ci ele já me devolve o firebase token para o servidor de CI
+			- app id está presente na Configurações do Projeto
+			
+	• Espresso | Testes de UI
+		- Testes automatizados de alta fidelidade (rápida, confiavel e repetitiva)
+		- Documentaão para testes instrumentizados com hilt: https://developer.android.com/training/dependency-injection/hilt-testing#launchfragment
+			• Artigo sobre isso: https://medium.com/android-dev-br/criando-um-ambiente-de-testes-com-espresso-hilt-e-navigation-b0636427f6c1
+		- ATENÇÃO ao realizar testes integrados, pois as threads em background podem não retornar valor a thread main, e o espresso finaliza o testes dando success ou failure
+		- Idling Resources: usado quando precisamos esperar uma requisição (geralmente sem mock), ou mesmo um toast, modal que precisamos esperar para aparecer na tela
+		- Utilização de qualifiers para definir qual module será usado em uma injeção de dependencias (exemplo usado BASE URL)
+		- Como instruir o hilt a desinstalar o modulo de produção e adicionar o modulo de teste nos testes
+		- Como MockWebServer é em localhost, precisamos configurar o arquivo network security para permitir requests http apenas no dominio localhost
+		
+	• Android Test Orcherstrator
+		- Isola cada execução de teste, evitando efeitos colaterais de testes já realizados
+		
+	• Mock Web Server
+		- Basicamente, definimos o baseUrl da nossa api como localhost:8080, pois o MockWebServer, starta um servidor nesse endereço, dessa forma, todo nosso código funcionará, fazendo requisições nesse server, porém eu manipulo o response, header, etc para facilitar os testes
+		- Utilizado para mockar uma api (Roda no localhost)
+		- Copiamos e colamos uma resposta real da response para criar casos de testes fidedignos.
+		- Pode simular erro 500 | Verificar endpoint | Headers | etc

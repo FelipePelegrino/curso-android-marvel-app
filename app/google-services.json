@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "831982261315",
+    "project_id": "curso-android-marvel-app-ea59e",
+    "storage_bucket": "curso-android-marvel-app-ea59e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831982261315:android:762316dd2a2272116070f6",
+        "android_client_info": {
+          "package_name": "com.example.marvelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtqFKCIKIEi5GV7NHlXsIuAVjAsCSeb2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831982261315:android:8eb61707fd4198ae6070f6",
+        "android_client_info": {
+          "package_name": "com.example.marvelapp.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtqFKCIKIEi5GV7NHlXsIuAVjAsCSeb2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831982261315:android:625891d992e9eb866070f6",
+        "android_client_info": {
+          "package_name": "com.example.marvelapp.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtqFKCIKIEi5GV7NHlXsIuAVjAsCSeb2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831982261315-bq6f0cb9ac0i9cgu341cueuc72ed2er8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

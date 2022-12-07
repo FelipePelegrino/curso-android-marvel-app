@@ -1,9 +1,9 @@
 package com.example.marvelapp.presentation.characters
 
 import androidx.paging.PagingData
-import com.gmail.devpelegrino.core.usecase.GetCharactersUseCase
-import com.gmail.devpelegrino.testing.MainCoroutineRule
-import com.gmail.devpelegrino.testing.model.CharacterFactory
+import com.example.core.usecase.GetCharactersUseCase
+import com.example.testing.MainCoroutineRule
+import com.example.testing.model.CharacterFactory
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi

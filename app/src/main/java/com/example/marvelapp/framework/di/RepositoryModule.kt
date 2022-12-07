@@ -3,8 +3,8 @@ package com.example.marvelapp.framework.di
 import com.example.marvelapp.framework.CharactersRepositoryImpl
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
 import com.example.marvelapp.framework.remote.RetrofitCharactersDataSource
-import com.gmail.devpelegrino.core.data.repository.CharactersRemoteDataSource
-import com.gmail.devpelegrino.core.data.repository.CharactersRepository
+import com.example.core.data.repository.CharactersRemoteDataSource
+import com.example.core.data.repository.CharactersRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

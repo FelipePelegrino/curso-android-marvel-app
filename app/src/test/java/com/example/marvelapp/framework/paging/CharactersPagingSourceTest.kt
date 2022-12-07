@@ -3,10 +3,10 @@ package com.example.marvelapp.framework.paging
 import androidx.paging.PagingSource
 import com.example.marvelapp.factory.response.DataWrapperResponseFactory
 import com.example.marvelapp.framework.network.response.DataWrapperResponse
-import com.gmail.devpelegrino.core.data.repository.CharactersRemoteDataSource
-import com.gmail.devpelegrino.core.domain.model.Character
-import com.gmail.devpelegrino.testing.MainCoroutineRule
-import com.gmail.devpelegrino.testing.model.CharacterFactory
+import com.example.core.data.repository.CharactersRemoteDataSource
+import com.example.core.domain.model.Character
+import com.example.testing.MainCoroutineRule
+import com.example.testing.model.CharacterFactory
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest

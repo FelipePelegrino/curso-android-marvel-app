@@ -1,7 +1,7 @@
 package com.example.marvelapp.framework.di
 
-import com.gmail.devpelegrino.core.usecase.GetCharactersUseCase
-import com.gmail.devpelegrino.core.usecase.GetCharactersUseCaseImpl
+import com.example.core.usecase.GetCharactersUseCase
+import com.example.core.usecase.GetCharactersUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
