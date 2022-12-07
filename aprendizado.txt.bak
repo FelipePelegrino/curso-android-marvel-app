@@ -78,8 +78,12 @@
 			• Artigo sobre isso: https://medium.com/android-dev-br/criando-um-ambiente-de-testes-com-espresso-hilt-e-navigation-b0636427f6c1
 		- ATENÇÃO ao realizar testes integrados, pois as threads em background podem não retornar valor a thread main, e o espresso finaliza o testes dando success ou failure
 		- Idling Resources: usado quando precisamos esperar uma requisição (geralmente sem mock), ou mesmo um toast, modal que precisamos esperar para aparecer na tela
+		- Utilização de qualifiers para definir qual module será usado em uma injeção de dependencias (exemplo usado BASE URL)
+		- Como instruir o hilt a desinstalar o modulo de produção e adicionar o modulo de teste nos testes
+		- Como MockWebServer é em localhost, precisamos configurar o arquivo network security para permitir requests http apenas no dominio localhost
 		
 	• Mock Web Server
+		- Basicamente, definimos o baseUrl da nossa api como localhost:8080, pois o MockWebServer, starta um servidor nesse endereço, dessa forma, todo nosso código funcionará, fazendo requisições nesse server, porém eu manipulo o response, header, etc para facilitar os testes
 		- Utilizado para mockar uma api (Roda no localhost)
 		- Copiamos e colamos uma resposta real da response para criar casos de testes fidedignos.
 		- Pode simular erro 500 | Verificar endpoint | Headers | etc
