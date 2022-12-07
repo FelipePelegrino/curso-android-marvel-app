@@ -1,8 +1,8 @@
-package com.gmail.devpelegrino.testing.pagingsource
+package com.example.testing.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.domain.model.Character
 
 class PagingSourceFactory {
 

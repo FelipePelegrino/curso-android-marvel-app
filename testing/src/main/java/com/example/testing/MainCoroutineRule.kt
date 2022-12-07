@@ -1,4 +1,4 @@
-package com.gmail.devpelegrino.testing
+package com.example.testing
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,7 +12,7 @@ import org.junit.runner.Description
 @ExperimentalCoroutinesApi
 class MainCoroutineRule(
     private val dispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
-):
+) :
     TestWatcher(),
     TestCoroutineScope by TestCoroutineScope(dispatcher) {
     override fun starting(description: Description) {

@@ -1,11 +1,10 @@
-package com.gmail.devpelegrino.core.usecase
+package com.example.core.usecase
 
 import androidx.paging.PagingConfig
-import com.gmail.devpelegrino.core.data.repository.CharactersRepository
-import com.gmail.devpelegrino.testing.MainCoroutineRule
-import com.gmail.devpelegrino.testing.model.CharacterFactory
-import com.gmail.devpelegrino.testing.pagingsource.PagingSourceFactory
-import com.nhaarman.mockitokotlin2.times
+import com.example.core.data.repository.CharactersRepository
+import com.example.testing.MainCoroutineRule
+import com.example.testing.model.CharacterFactory
+import com.example.testing.pagingsource.PagingSourceFactory
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,18 +26,13 @@ class GetCharactersUseCaseImplTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     @Mock
-    private lateinit var repository: CharactersRepository
+    lateinit var repository: CharactersRepository
 
     private lateinit var getCharactersUseCase: GetCharactersUseCase
 
-    private val characterFactory = CharacterFactory()
+    private val hero = CharacterFactory().create(CharacterFactory.Hero.ThreeD)
 
-    private val fakePagingSource = PagingSourceFactory().create(
-        listOf(
-            characterFactory.create(CharacterFactory.Hero.ThreeD),
-            characterFactory.create(CharacterFactory.Hero.ABomb)
-        )
-    )
+    private val fakePagingSource = PagingSourceFactory().create(listOf(hero))
 
     @Before
     fun setUp() {
@@ -55,7 +49,9 @@ class GetCharactersUseCaseImplTest {
             val result = getCharactersUseCase
                 .invoke(GetCharactersUseCase.GetCharactersParams("", PagingConfig(20)))
 
-            verify(repository, times(1)).getCharacters("")
+            repository.getCharacters("")
+
+            verify(repository).getCharacters("")
 
             assertNotNull(result.first())
         }

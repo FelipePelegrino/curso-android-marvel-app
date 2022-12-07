@@ -1,6 +1,6 @@
-package com.gmail.devpelegrino.testing.model
+package com.example.testing.model
 
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.domain.model.Character
 
 class CharacterFactory {
 

@@ -1,7 +1,7 @@
-package com.gmail.devpelegrino.core.data.repository
+package com.example.core.data.repository
 
 import androidx.paging.PagingSource
-import com.gmail.devpelegrino.core.domain.model.Character
+import com.example.core.domain.model.Character
 
 interface CharactersRepository {
 
