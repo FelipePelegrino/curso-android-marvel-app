@@ -1,10 +1,9 @@
 package com.example.marvelapp.framework.di
 
-import com.example.marvelapp.framework.CharactersRepositoryImpl
-import com.example.marvelapp.framework.network.response.DataWrapperResponse
-import com.example.marvelapp.framework.remote.RetrofitCharactersDataSource
 import com.example.core.data.repository.CharactersRemoteDataSource
 import com.example.core.data.repository.CharactersRepository
+import com.example.marvelapp.framework.CharactersRepositoryImpl
+import com.example.marvelapp.framework.remote.RetrofitCharactersDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,10 +19,6 @@ interface RepositoryModule {
     @Binds
     fun bindCharacterRepository(repository: CharactersRepositoryImpl): CharactersRepository
 
-    /*
-    * Provendo o RetrofitCharactersDataSource implementado, para quem precisar de um CharactersRemoteDataSource
-    * do tipo DataWrapperResponse
-    * */
     @Binds
-    fun bindRemoteDataSource(dataSource: RetrofitCharactersDataSource): CharactersRemoteDataSource<DataWrapperResponse>
+    fun bindRemoteDataSource(dataSource: RetrofitCharactersDataSource): CharactersRemoteDataSource
 }

@@ -90,3 +90,10 @@
 		- Utilizado para mockar uma api (Roda no localhost)
 		- Copiamos e colamos uma resposta real da response para criar casos de testes fidedignos.
 		- Pode simular erro 500 | Verificar endpoint | Headers | etc
+		
+	• DetailFeature
+		- shared transition element
+		- como abstrair bibliotecas externas para garantir a boa manutenabilidade caso a lib seja descontinuada
+		- typealias para isolar um tipo de variavel (como uma funçao  (num: Int, type: String) -> Int )
+		- requisição async com coroutines
+		- utilização de pair

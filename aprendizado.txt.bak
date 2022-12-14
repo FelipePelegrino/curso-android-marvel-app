@@ -82,8 +82,17 @@
 		- Como instruir o hilt a desinstalar o modulo de produção e adicionar o modulo de teste nos testes
 		- Como MockWebServer é em localhost, precisamos configurar o arquivo network security para permitir requests http apenas no dominio localhost
 		
+	• Android Test Orcherstrator
+		- Isola cada execução de teste, evitando efeitos colaterais de testes já realizados
+		
 	• Mock Web Server
 		- Basicamente, definimos o baseUrl da nossa api como localhost:8080, pois o MockWebServer, starta um servidor nesse endereço, dessa forma, todo nosso código funcionará, fazendo requisições nesse server, porém eu manipulo o response, header, etc para facilitar os testes
 		- Utilizado para mockar uma api (Roda no localhost)
 		- Copiamos e colamos uma resposta real da response para criar casos de testes fidedignos.
 		- Pode simular erro 500 | Verificar endpoint | Headers | etc
+		
+	• DetailFeature
+		- shared transition element
+		- como abstrair bibliotecas externas para garantir a boa manutenabilidade caso a lib seja descontinuada
+		- typealias para isolar um tipo de variavel (como uma funçao  (num: Int, type: String) -> Int )
+		- requisição async com coroutines

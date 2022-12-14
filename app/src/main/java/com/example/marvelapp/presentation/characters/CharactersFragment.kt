@@ -10,11 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.marvelapp.databinding.FragmentCharactersBinding
+import com.example.marvelapp.framework.imageloader.ImageLoader
+import com.example.marvelapp.presentation.detail.DetailViewArg
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CharactersFragment : Fragment() {
@@ -31,6 +36,9 @@ class CharactersFragment : Fragment() {
 
     private lateinit var charactersAdapter: CharactersAdapter
 
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,16 +53,21 @@ class CharactersFragment : Fragment() {
         observeFlow()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     /*
-    * lifecycleScope.launch pode causar crash, pois quando o app vai para background ele continua
-    * coletando o flow, e pode ser que ao tentar atualizar o adapter, ele não esteja instanciado
-    * por estar em background, ocasionando um erro, para isso, a solução é:
-    * viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-    *     ....
-    * }
-    * Quando for para background, ele automaticamente pausa o flow, e ao voltar no lifecycle onStart
-    * ele volta a escutar o flow
-    * */
+        * lifecycleScope.launch pode causar crash, pois quando o app vai para background ele continua
+        * coletando o flow, e pode ser que ao tentar atualizar o adapter, ele não esteja instanciado
+        * por estar em background, ocasionando um erro, para isso, a solução é:
+        * viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+        *     ....
+        * }
+        * Quando for para background, ele automaticamente pausa o flow, e ao voltar no lifecycle onStart
+        * ele volta a escutar o flow
+        * */
     private fun observeFlow() {
         lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -66,7 +79,22 @@ class CharactersFragment : Fragment() {
     }
 
     private fun initCharactersAdapter() {
-        charactersAdapter = CharactersAdapter()
+        charactersAdapter = CharactersAdapter(imageLoader) { character, view ->
+            val extras = FragmentNavigatorExtras(
+                view to character.name
+            )
+
+            val directions = CharactersFragmentDirections.actionCharactersFragmentToDetailFragment(
+                character.name,
+                DetailViewArg(
+                    characterId = character.id,
+                    name = character.name,
+                    imageUrl = character.imageUrl
+                )
+            )
+
+            findNavController().navigate(directions, extras)
+        }
         with(binding.recyclerCharacters) {
             scrollToPosition(0)
             setHasFixedSize(true)
@@ -91,7 +119,7 @@ class CharactersFragment : Fragment() {
                     is LoadState.Error -> {
                         setShimmerVisibility(false)
                         binding.includeViewCharactersErrorState.buttonRetry.setOnClickListener {
-                            charactersAdapter.refresh()
+                            charactersAdapter.retry()
                         }
                         FLIPPER_CHILD_ERROR
                     }
