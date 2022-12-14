@@ -96,3 +96,5 @@
 		- como abstrair bibliotecas externas para garantir a boa manutenabilidade caso a lib seja descontinuada
 		- typealias para isolar um tipo de variavel (como uma funçao  (num: Int, type: String) -> Int )
 		- requisição async com coroutines
+		- utilização de pair
+		- refatoração do coroutinesModules de D.I para quando for testar as chamadas assincronas no unitTests, mockar o dispatchers para thread de tests
