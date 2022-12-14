@@ -90,3 +90,17 @@
 		- Utilizado para mockar uma api (Roda no localhost)
 		- Copiamos e colamos uma resposta real da response para criar casos de testes fidedignos.
 		- Pode simular erro 500 | Verificar endpoint | Headers | etc
+		
+	• DetailFeature
+		- shared transition element
+		- como abstrair bibliotecas externas para garantir a boa manutenabilidade caso a lib seja descontinuada
+		- typealias para isolar um tipo de variavel (como uma funçao  (num: Int, type: String) -> Int )
+		- requisição async com coroutines
+		- utilização de pair
+		- refatoração do coroutinesModules de D.I para quando for testar as chamadas assincronas no unitTests, mockar o dispatchers para thread de tests
+			• pois caso contrário, os testes iam começar rodando em thread de testes, porém ao fazer a chamada assincrona, caso se eu utiliza-se Dispatchers.IO diretamente, ele ia mudar a thread para IO, perdendo referencia a thread de testes e impedindo de fazer as asserções corretamente.
+			• injetando dependencias para os dispatchers, é possível mockar na classe de testes o bind que prove a thread io para prover thread de testes apenas nesse cenário de testes, garantindo assim a execução assincrona na thread de testes porém, garantindo a fidelidade das asserts.
+		- testes com liveData
+			• instantTaskExecutorRule para execução dos testes com liveData
+			• mock de um observable para ele escutar todas as alterações no liveData real e poder fazer asserções mais simples e com menas linhas de código utilizando por exemplo: 
+				verify(uiStateObserver).onChanged(isA<DetailViewModel.UiState.Success>())
