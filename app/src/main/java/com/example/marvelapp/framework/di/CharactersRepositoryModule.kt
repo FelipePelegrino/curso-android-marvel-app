@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RepositoryModule {
+interface CharactersRepositoryModule {
 
     /*
     * A classe que implementa o CharactersRepository, vai receber um CharactersRepositoryImpl

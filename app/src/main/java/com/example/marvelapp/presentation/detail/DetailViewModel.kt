@@ -1,59 +1,81 @@
 package com.example.marvelapp.presentation.detail
 
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.model.Comic
 import com.example.core.domain.model.Event
+import com.example.core.usecase.AddFavoriteUseCase
 import com.example.core.usecase.GetCharacterCategoriesUseCase
-import com.example.core.usecase.base.ResultStatus
 import com.example.marvelapp.R
+import com.example.marvelapp.presentation.extension.watchStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val getCharacterCategoriesUseCase: GetCharacterCategoriesUseCase
+    private val getCharacterCategoriesUseCase: GetCharacterCategoriesUseCase,
+    private val addFavoriteUseCase: AddFavoriteUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData<UiState>()
     val uiState: LiveData<UiState>
         get() = _uiState
 
+    private val _favoriteUiState = MutableLiveData<FavoriteUiState>()
+    val favoriteUiState: LiveData<FavoriteUiState> get() = _favoriteUiState
+
+    init {
+        _favoriteUiState.value = FavoriteUiState.FavoriteIcon(R.drawable.ic_favorite_unchecked)
+    }
+
     fun getCharacterCategories(characterId: Int) = viewModelScope.launch {
         getCharacterCategoriesUseCase(
             GetCharacterCategoriesUseCase.GetCharacterCategoriesParams(characterId)
-        ).watchStatus()
+        ).watchStatus(
+            loading = { _uiState.value = UiState.Loading },
+            success = { resultData ->
+                val detailParentList = mutableListOf<DetailParentVE>()
+
+                getCharacterCategories(resultData, detailParentList)
+                getEvents(resultData, detailParentList)
+
+                _uiState.value = if (detailParentList.isNotEmpty()) {
+                    UiState.Success(detailParentList)
+                } else UiState.Empty
+            },
+            error = { _uiState.value = UiState.Error }
+        )
     }
 
-    private fun Flow<ResultStatus<Pair<List<Comic>, List<Event>>>>.watchStatus() =
-        viewModelScope.launch {
-            collect { status ->
-                _uiState.value = when (status) {
-                    is ResultStatus.Loading -> UiState.Loading
-                    is ResultStatus.Error -> UiState.Error
-                    is ResultStatus.Success -> {
-                        val detailParentList = mutableListOf<DetailParentVE>()
-
-                        getCharacterCategories(status, detailParentList)
-                        getEvents(status, detailParentList)
-
-                        if (detailParentList.isNotEmpty()) {
-                            UiState.Success(detailParentList)
-                        } else UiState.Empty
-                    }
-                }
-            }
+    fun updateFavorite(detailViewArg: DetailViewArg) = viewModelScope.launch {
+        detailViewArg.run {
+            addFavoriteUseCase.invoke(
+                AddFavoriteUseCase.Params(
+                    characterId = characterId,
+                    name = name,
+                    imageUrl = imageUrl
+                )
+            ).watchStatus(
+                loading = { _favoriteUiState.value = FavoriteUiState.Loading },
+                success = {
+                    _favoriteUiState.value =
+                        FavoriteUiState.FavoriteIcon(R.drawable.ic_favorite_checked)
+                },
+                error = { }
+            )
         }
+    }
+
 
     private fun getCharacterCategories(
-        status: ResultStatus.Success<Pair<List<Comic>, List<Event>>>,
+        resultData: Pair<List<Comic>, List<Event>>,
         detailParentList: MutableList<DetailParentVE>
     ) {
-        val comics = status.data.first
+        val comics = resultData.first
         if (comics.isNotEmpty()) {
             comics.map {
                 DetailChildVE(it.id, it.imageUrl)
@@ -66,10 +88,10 @@ class DetailViewModel @Inject constructor(
     }
 
     private fun getEvents(
-        status: ResultStatus.Success<Pair<List<Comic>, List<Event>>>,
+        resultData: Pair<List<Comic>, List<Event>>,
         detailParentList: MutableList<DetailParentVE>
     ) {
-        val events = status.data.second
+        val events = resultData.second
         if (events.isNotEmpty()) {
             events.map {
                 DetailChildVE(it.id, it.imageUrl)
@@ -79,6 +101,11 @@ class DetailViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    sealed class FavoriteUiState {
+        object Loading : FavoriteUiState()
+        class FavoriteIcon(@DrawableRes val icon: Int) : FavoriteUiState()
     }
 
     sealed class UiState {
