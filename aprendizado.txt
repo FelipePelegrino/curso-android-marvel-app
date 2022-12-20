@@ -104,3 +104,6 @@
 			• instantTaskExecutorRule para execução dos testes com liveData
 			• mock de um observable para ele escutar todas as alterações no liveData real e poder fazer asserções mais simples e com menas linhas de código utilizando por exemplo: 
 				verify(uiStateObserver).onChanged(isA<DetailViewModel.UiState.Success>())
+				
+	• Implementação de UiActionStateLiveData, uma técnica para isolar casos de uso no viewModel, em arquivos separados, para melhor organização do código
+		- Map Actions and UiState
