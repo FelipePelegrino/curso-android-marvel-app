@@ -1,6 +1,7 @@
 package com.example.marvelapp.presentation.detail
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.LiveDataScope
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
@@ -12,8 +13,8 @@ import com.example.marvelapp.presentation.extension.watchStatus
 import kotlin.coroutines.CoroutineContext
 
 class UiActionStateLiveData(
-    private val coroutineContext: CoroutineContext,
-    private val getCharacterCategoriesUseCase: GetCharacterCategoriesUseCase
+    private val getCharacterCategoriesUseCase: GetCharacterCategoriesUseCase,
+    private val coroutineContext: CoroutineContext
 ) {
 
     private val action = MutableLiveData<Action>()
@@ -21,22 +22,7 @@ class UiActionStateLiveData(
         liveData(coroutineContext) {
             when (action) {
                 is Action.Load -> {
-                    getCharacterCategoriesUseCase(
-                        GetCharacterCategoriesUseCase.GetCharacterCategoriesParams(action.characterId)
-                    ).watchStatus(
-                        loading = { emit(UiState.Loading) },
-                        error = { emit(UiState.Error) },
-                        success = { resultData ->
-                            val detailParentList = mutableListOf<DetailParentVE>()
-
-                            getCharacterCategories(resultData, detailParentList)
-                            getEvents(resultData, detailParentList)
-
-                            if (detailParentList.isNotEmpty()) {
-                                emit(UiState.Success(detailParentList))
-                            } else emit(UiState.Empty)
-                        },
-                    )
+                    handleActionLoad(action)
                 }
             }
         }
@@ -44,6 +30,27 @@ class UiActionStateLiveData(
 
     fun load(characterId: Int) {
         action.value = Action.Load(characterId)
+    }
+
+    private suspend fun LiveDataScope<UiState>.handleActionLoad(
+        action: Action.Load
+    ) {
+        getCharacterCategoriesUseCase(
+            GetCharacterCategoriesUseCase.GetCharacterCategoriesParams(action.characterId)
+        ).watchStatus(
+            loading = { emit(UiState.Loading) },
+            error = { emit(UiState.Error) },
+            success = { resultData ->
+                val detailParentList = mutableListOf<DetailParentVE>()
+
+                getCharacterCategories(resultData, detailParentList)
+                getEvents(resultData, detailParentList)
+
+                if (detailParentList.isNotEmpty()) {
+                    emit(UiState.Success(detailParentList))
+                } else emit(UiState.Empty)
+            }
+        )
     }
 
     private fun getCharacterCategories(

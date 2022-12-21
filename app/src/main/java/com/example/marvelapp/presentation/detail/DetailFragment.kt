@@ -45,7 +45,12 @@ class DetailFragment : Fragment() {
         setSharedElementTransitionOnEnter()
         setObservables(detailViewArg.characterId)
         setClickListeners(detailViewArg)
+        initActions(detailViewArg)
+    }
+
+    private fun initActions(detailViewArg: DetailViewArg) {
         viewModel.categories.load(detailViewArg.characterId)
+        viewModel.favorite.checkFavorite(detailViewArg.characterId)
     }
 
     private fun setClickListeners(detailViewArg: DetailViewArg) {
