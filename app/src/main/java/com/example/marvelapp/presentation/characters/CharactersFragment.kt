@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -27,59 +25,10 @@ class CharactersFragment : Fragment() {
     private var _binding: FragmentCharactersBinding? = null
     private val binding: FragmentCharactersBinding get() = _binding!!
 
-    /*
-    * Instanciando o viewModel a partir do extension de fragments
-    * porém o factory utilizado já vai ser conforme o hilt configurado com @HiltViewModel e
-    * @AndroidEntryPoint
-    * */
     private val viewModel: CharactersViewModel by viewModels()
 
-    private lateinit var charactersAdapter: CharactersAdapter
-
-    @Inject
-    lateinit var imageLoader: ImageLoader
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ) = FragmentCharactersBinding.inflate(inflater, container, false).apply {
-        _binding = this
-    }.root
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initCharactersAdapter()
-        observeInitialLoadState()
-        observeFlow()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    /*
-        * lifecycleScope.launch pode causar crash, pois quando o app vai para background ele continua
-        * coletando o flow, e pode ser que ao tentar atualizar o adapter, ele não esteja instanciado
-        * por estar em background, ocasionando um erro, para isso, a solução é:
-        * viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-        *     ....
-        * }
-        * Quando for para background, ele automaticamente pausa o flow, e ao voltar no lifecycle onStart
-        * ele volta a escutar o flow
-        * */
-    private fun observeFlow() {
-        lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.charactersPagingData("").collect { pagingData ->
-                    charactersAdapter.submitData(pagingData)
-                }
-            }
-        }
-    }
-
-    private fun initCharactersAdapter() {
-        charactersAdapter = CharactersAdapter(imageLoader) { character, view ->
+    private val charactersAdapter: CharactersAdapter by lazy {
+        CharactersAdapter(imageLoader) { character, view ->
             val extras = FragmentNavigatorExtras(
                 view to character.name
             )
@@ -95,12 +44,56 @@ class CharactersFragment : Fragment() {
 
             findNavController().navigate(directions, extras)
         }
+    }
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = FragmentCharactersBinding.inflate(inflater, container, false).apply {
+        _binding = this
+    }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initCharactersAdapter()
+        observeInitialLoadState()
+        viewModel.searchCharacters()
+        setObservables()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setObservables() {
+        viewModel.state.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                is CharactersViewModel.UiState.SearchResult -> {
+                    handleSearchResult(uiState)
+                }
+            }
+        }
+    }
+
+    private fun handleSearchResult(uiState: CharactersViewModel.UiState.SearchResult) {
+        charactersAdapter.submitData(viewLifecycleOwner.lifecycle, uiState.data)
+    }
+
+    private fun initCharactersAdapter() {
+        postponeEnterTransition()
         with(binding.recyclerCharacters) {
-            scrollToPosition(0)
             setHasFixedSize(true)
             adapter = charactersAdapter.withLoadStateFooter(
                 footer = CharactersLoadMoreStateAdapter(charactersAdapter::retry)
             )
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 

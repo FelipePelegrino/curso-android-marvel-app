@@ -3,11 +3,14 @@ package com.example.marvelapp.presentation.characters
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.marvelapp.R
 import com.example.marvelapp.extension.asJsonString
 import com.example.marvelapp.framework.di.BaseUrlModule
+import com.example.marvelapp.framework.di.CoroutinesModule
 import com.example.marvelapp.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -20,7 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@UninstallModules(BaseUrlModule::class)
+@UninstallModules(BaseUrlModule::class, CoroutinesModule::class)
 @HiltAndroidTest
 @RunWith(AndroidJUnit4::class)
 class CharactersFragmentTest {
@@ -42,7 +45,6 @@ class CharactersFragmentTest {
     fun shouldShowCharacters_whenViewIsCreated() {
         server.enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
 
-        Thread.sleep(500L)
         onView(
             withId(R.id.recycler_characters)
         ).check(
@@ -59,7 +61,6 @@ class CharactersFragmentTest {
         }
 
 
-        Thread.sleep(500L)
         // Action
         onView(
             withId(R.id.recycler_characters)

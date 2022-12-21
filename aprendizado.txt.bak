@@ -106,3 +106,4 @@
 				verify(uiStateObserver).onChanged(isA<DetailViewModel.UiState.Success>())
 				
 	• Implementação de UiActionStateLiveData, uma técnica para isolar casos de uso no viewModel, em arquivos separados, para melhor organização do código
+		- Map Actions and UiState
