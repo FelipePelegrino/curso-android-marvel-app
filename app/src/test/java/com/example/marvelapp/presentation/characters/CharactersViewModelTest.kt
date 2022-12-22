@@ -1,13 +1,16 @@
 package com.example.marvelapp.presentation.characters
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import androidx.paging.PagingData
 import com.example.core.usecase.GetCharactersUseCase
 import com.example.testing.MainCoroutineRule
 import com.example.testing.model.CharacterFactory
 import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.isA
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertNotNull
@@ -23,14 +26,18 @@ import org.mockito.junit.MockitoJUnitRunner
 class CharactersViewModelTest {
 
     @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
+
+    @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
     private val charactersFactory = CharacterFactory()
 
-    // @Mock falhará, pois só é possível mockar @Mock interfaces. Apesar de não apresentar erro de compilação
-    // em execução gerara uma exception
     @Mock
     lateinit var getCharactersUseCase: GetCharactersUseCase
+
+    @Mock
+    private lateinit var uiStateObserver: Observer<CharactersViewModel.UiState>
 
     private lateinit var charactersViewModel: CharactersViewModel
 
@@ -43,22 +50,31 @@ class CharactersViewModelTest {
 
     @Before
     fun setUp() {
-        charactersViewModel = CharactersViewModel(getCharactersUseCase)
+        charactersViewModel = CharactersViewModel(
+            getCharactersUseCase = getCharactersUseCase,
+            coroutinesDispatchers = mainCoroutineRule.testDispatcherProvider
+        ).apply {
+            state.observeForever(uiStateObserver)
+        }
     }
 
     @Test
     fun `should validate the paging data object values when calling charactersPagingData`() =
         runTest {
+            // Arrange
             whenever(
                 getCharactersUseCase.invoke(any())
             ).thenReturn(
                 flowOf(pagingDataCharacters)
             )
 
-            val result = charactersViewModel.charactersPagingData("")
+            // Act
+            charactersViewModel.searchCharacters("")
+            verify(uiStateObserver).onChanged(isA<CharactersViewModel.UiState.SearchResult>())
 
-            assertNotNull(result.first())
-
+            // Assert
+            val result = charactersViewModel.state.value as CharactersViewModel.UiState.SearchResult
+            assertNotNull(result)
         }
 
     @Test(expected = RuntimeException::class)
@@ -67,6 +83,6 @@ class CharactersViewModelTest {
             whenever(getCharactersUseCase.invoke(any()))
                 .thenThrow(RuntimeException())
 
-            charactersViewModel.charactersPagingData("")
+            charactersViewModel.searchCharacters("")
         }
 }
