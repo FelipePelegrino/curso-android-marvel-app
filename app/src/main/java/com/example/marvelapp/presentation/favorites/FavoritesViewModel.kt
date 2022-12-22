@@ -29,26 +29,31 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     private suspend fun LiveDataScope<UiState>.handleGetAll() {
-        getFavoritesUseCase.invoke()
-            .catch {
-                emit(UiState.ShowEmpty)
-            }
-            .collect {
-                val items = it.map { character ->
-                    FavoriteItem(
-                        id = character.id,
-                        name = character.name,
-                        imageUrl = character.imageUrl
-                    )
+        try {
+            getFavoritesUseCase.invoke()
+                .catch {
+                    emit(UiState.ShowEmpty)
                 }
+                .collect {
+                    val items = it.map { character ->
+                        FavoriteItem(
+                            id = character.id,
+                            name = character.name,
+                            imageUrl = character.imageUrl
+                        )
+                    }
 
-                val uiState = if (items.isEmpty()) {
-                    UiState.ShowEmpty
-                } else UiState.ShowFavorites(items)
+                    val uiState = if (items.isEmpty()) {
+                        UiState.ShowEmpty
+                    } else UiState.ShowFavorites(items)
 
-                emit(uiState)
-            }
+                    emit(uiState)
+                }
+        } catch (e: RuntimeException) {
+            emit(UiState.ShowEmpty)
+        }
     }
 
 

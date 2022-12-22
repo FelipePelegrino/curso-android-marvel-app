@@ -93,4 +93,19 @@ class FavoritesViewModelTest {
             verify(uiStateObserver).onChanged(isA<FavoritesViewModel.UiState.ShowEmpty>())
         }
 
+    @Test
+    fun `should notify uiState with ShowEmpty from UiState when get all returns error`() =
+        runTest {
+            // Arrange
+            whenever(getFavoritesUseCase.invoke())
+                .thenThrow(
+                    RuntimeException()
+                )
+
+            // Act
+            favoritesViewModel.getAll()
+
+            // Assert
+            verify(uiStateObserver).onChanged(isA<FavoritesViewModel.UiState.ShowEmpty>())
+        }
 }
