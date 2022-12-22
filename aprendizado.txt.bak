@@ -109,3 +109,4 @@
 		- Map Actions and UiState
 	
 	• Conversão de flow<PagingData> para liveData<PagingData>
+	• Uso do annotation @VisibleForTest
