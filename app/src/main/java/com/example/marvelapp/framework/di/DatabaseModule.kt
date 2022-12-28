@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.core.data.DbConstants.APP_DATABASE_NAME
 import com.example.marvelapp.framework.db.AppDatabase
+import com.example.marvelapp.framework.db.dao.CharacterDao
 import com.example.marvelapp.framework.db.dao.FavoriteDao
 import dagger.Module
 import dagger.Provides
@@ -26,4 +27,8 @@ object DatabaseModule {
     @Provides
     fun provideFavoritesDao(database: AppDatabase): FavoriteDao =
         database.favoriteDao()
+
+    @Provides
+    fun provideCharacterDao(database: AppDatabase): CharacterDao =
+        database.characterDao()
 }
