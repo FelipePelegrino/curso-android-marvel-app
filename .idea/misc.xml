@@ -16,11 +16,14 @@
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/drawable/ic_img_placeholder.xml" value="0.3045" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/drawable/ic_info_menu_outlined.xml" value="0.314" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/drawable/ic_not_favorite_unchecked.xml" value="0.3045" />
+        <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/drawable/marvel_chip_background_color.xml" value="0.308" />
+        <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/drawable/marvel_chip_text_color.xml" value="0.304" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/fragment_about.xml" value="0.35260416666666666" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/fragment_characters.xml" value="0.36666666666666664" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/fragment_detail.xml" value="0.35260416666666666" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/fragment_favorites.xml" value="0.35260416666666666" />
+        <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/fragment_sort.xml" value="0.36666666666666664" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/include_error_view.xml" value="0.365625" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/include_view_characters_error_state.xml" value="0.365625" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/include_view_characters_loading_state.xml" value="0.365625" />
@@ -33,6 +36,7 @@
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/shimmer_layout_category_item.xml" value="0.365625" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/layout/shimmer_layout_character_item.xml" value="0.36666666666666664" />
         <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/menu/app_menu_items.xml" value="0.36666666666666664" />
+        <entry key="..\:/projetos_pessoais/curso-android-marvel-app/app/src/main/res/menu/characters_menu_items.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.3861538461538462" />
         <entry key="app/src/main/res/drawable/ic_dissatisfied.xml" value="0.4066666666666667" />
         <entry key="app/src/main/res/drawable/ic_favorite_checked.xml" value="0.231" />

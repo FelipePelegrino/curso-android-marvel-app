@@ -110,3 +110,8 @@
 	
 	• Conversão de flow<PagingData> para liveData<PagingData>
 	• Uso do annotation @VisibleForTest
+	• Uso de inline
+		- deixa de criar um objeto na memória para representar a função
+		- passa a copiar o código da função lambda, e copia para a linha executável, evitando um crescimento na memória do app
+		
+	• Uso do RemoteMediator
