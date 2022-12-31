@@ -69,7 +69,7 @@ class CharactersViewModelTest {
             )
 
             // Act
-            charactersViewModel.searchCharacters("")
+            charactersViewModel.searchCharacters()
             verify(uiStateObserver).onChanged(isA<CharactersViewModel.UiState.SearchResult>())
 
             // Assert
@@ -83,6 +83,6 @@ class CharactersViewModelTest {
             whenever(getCharactersUseCase.invoke(any()))
                 .thenThrow(RuntimeException())
 
-            charactersViewModel.searchCharacters("")
+            charactersViewModel.searchCharacters()
         }
 }
